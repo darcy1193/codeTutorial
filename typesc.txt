@@ -1,0 +1,120 @@
+   
+   Project - demonstration on types in C (gcc) using Markdown
+   
+   Purpose to show how to use Markdown to create a web page
+   showing storage of basic type of data and conversion of each
+   type to and from asci strings. Mazrkdown will likely be 
+   run from within Rstudio
+   
+   Initially C will be used as the language, others
+   may be substituted later. This does not user docker or
+   execute the C code shown, just shows the output of the code.
+   
+   Data Types in memory:
+     Ascii - printable and nonprintable
+     unsigned char, short, integer, long, long long
+     signed char short, integer, long, long long
+     ieee-fp binary format only: fp16, fp32, fp64, fp128
+     machine code - just a couple very sinple examples,
+             perhaps x86 and MSP430 
+   
+   Assume all signed numbers are stored as two's complement
+   
+   Endian: From Wikipedia
+   Historically, various methods of endianness have been used in computing, 
+   including exotic forms such as middle-endianness. Today, however, i
+   big-endianness is the dominant ordering in networking protocols (IP, TCP, UDP).
+   Conversely, little-endianness is the dominant ordering for processor 
+   architectures (x86, most ARM implementations) and their associated memory. 
+   File formats can use either ordering; some formats use a mixture of both.
+   
+   Storage unit sizes
+   8 bit, 16 bit, 32 bit, 64 bit, 128 bit
+   
+   Display:
+   as text
+   as unsigned
+   as signed
+   as ieee-fp
+   
+   For each type and storage, demonstrate the range and precision
+   as well as ascii, binary, octal, hex, decimal and ieee-fp
+   representations as approprate.
+   
+   In addition printing the following from C
+   signed - max, min
+   unsigned - max, min
+   floating - max, min. binary precision, 
+              approximate precision in decimal (what does it mean)
+              normalized and denormalized values
+              +0 -0, NaN (s), Infinity and -Infinity
+   
+   Differencce between precision and accuracy
+   Round off in floating point
+   Effects of overflow in integer types and fp types
+   Effects of division by 0 in ...
+   Effects of underflow in floating point
+   
+   Note there are a number of free javascript pages online 
+   showing the desided conversions and a number of sites
+   explaining them. A number of books and pdfs can be found that
+   are good references as well. Links to them should be included.
+   
+   Details under version control with READMEs in directories
+     making: 
+       index
+       references
+       sections
+       code blocks
+       code output
+       mathematical formulae
+     c code and simple makefiles to comple and run them, saving 
+         output to files
+    
+   Access from a mobile device? 
+   -----------------------------------------
+   Outline
+   
+   Title
+   Date
+     index
+   Section 1
+       Introduction
+       ANSI stndard C and gcc
+   Section 2
+       Introduction
+       Storage sizes and binary representations of contents
+          binary, octal, hex
+       Unsigned numbers 
+          range
+          binary, octal, hex, and decimal
+          + - * / %
+          overflow
+          divide by 0
+       Ascii codes
+          Ascii table
+          binary, hex
+       Machine code
+          binary, hex, aseembly language
+   Secton 3
+       Introduction
+       Signed numbers (two's complement)
+          range
+          binary, octal, hex, and decimal
+          + - * / %
+          overflow
+          divide by 0
+   Sercton 4
+       Introduction
+       ieee floating point
+          range
+          approximate precision in decimal (what does it mean)
+          normalized and denormalized values
+          +0 -0, NaN (s), Infinity and -Infinity
+          overflow and underflow
+          + - * /
+          rounding errors
+          input and output
+          input and output to a file without changing values
+   Refereneces
+   
