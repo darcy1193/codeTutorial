@@ -73,33 +73,35 @@
     
    Access from a mobile device? 
    -----------------------------------------
-   Outline
-   
-   Title
-   Date
-     index
-   Section 1
-       Introduction
-       ANSI stndard C and gcc
+   Outline   
+   -Title
+   -Date
+     -index
+   -Section 1
+       -Introduction
+       -ANSI stndard C and gcc
    Section 2
-       Introduction
-       Storage sizes and binary representations of contents
-          binary, octal, hex
-       Unsigned numbers 
-          range
-          binary, octal, hex, and decimal
-          + - * / %
-          overflow
-          divide by 0
-       Ascii codes
-          Ascii table
-          binary, hex
-       Machine code
-          binary, hex, aseembly language
+       -Introduction
+       -Storage sizes and binary representations of contents
+          -binary, octal, hex
+	   CODE
+       -Unsigned numbers 
+          -range
+          - binary, octal, hex, and decimal
+          -+ - * / %
+          -overflow
+          -divide by 0
+	   -CODE
+       -Ascii codes
+          -Ascii table
+          -binary, hex
+	   CONVERSION CODE EXAMPLE?
+       -Machine code
+          -binary, hex, aseembly language
    Secton 3
        Introduction
        Signed numbers (two's complement)
-          range
+          -range
           binary, octal, hex, and decimal
           + - * / %
           overflow
@@ -118,3 +120,19 @@
           input and output to a file without changing values
    Refereneces
    
+
+
+
+
+
+
+MY NOTES:
+------------------------------------------------
+-octal prefix - 0
+-binary prefix - 0b or 0B
+-hex prefix - 0x
+program for printing out storage size for different data types
+-ptrogram for illustrating overflow
+-program for illustrating assigning hex, octal, binary, to int
+big endian and little endian
+MSP430 example
