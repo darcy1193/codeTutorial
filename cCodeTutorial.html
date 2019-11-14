@@ -296,11 +296,11 @@ Hex = 16</code></pre>
 <hr />
 <p>It is worth noting that since integers are used to store binary, octal, and hexidecimal values their range depends on the size of an int on your specific system (2 or 4 bytes). <br><br />
 There are 5 different arithmetic <strong>operators used in C</strong>. These operators include addition (+), subtraction (-), multiplication (*), division (/), and modulus or remainder (%). As many of us learned in CS 3240 we know addition and subraction are simple arithmetic but multiplication and division are too in a sense. Multiplication is completed through repeated addition. Modulus and division are completed through repeated subtraction. <br><br />
-Unsigned data types have a range, what happens if that range is exceeded? This is what we call <strong>overflow</strong>. In C when there is overflow in some unsigned data type it “wraps around”. For example, if you take the maximum number which can be stored for some data type and add 1 to it the result would be 0. Add 2 and the result would be 1, etc, etc. Refer below for a more clear example. <br><br> The case of overflow in C has been covered, now lets consider the case <strong>dividing by 0</strong>. In C integer division of 0/0 is said to invoke undefined behavior. This means there could be many different results based on your specific system. In some cases the result can be a nan, which is short for “Not a Number”. Any operation performed on a nan will produce a nan. In C there can also be result of negative or positive infinity. We will go more into detail with these results in the IEEE Floating Point Section. Below is my results from division by 0 on my system.</p>
+Unsigned data types have a range, what happens if that range is exceeded? This is what we call <strong>overflow</strong>. In C when an unsigned data type exceeds its maximum value it does not overflow it “wraps around”. For example, if you take the maximum number which can be stored for some data type and add 1 to it the result would be 0. Add 2 and the result would be 1, etc, etc. Refer below for a more clear example. <br><br> The case of overflow in unsigned datatypes has been covered, now lets consider the case <strong>dividing by 0</strong>. In C integer division of 0/0 is said to invoke undefined behavior. This means there could be many different results based on your specific system. In some cases the result can be a nan, which is short for “Not a Number”. Any operation performed on a nan will produce a nan. In C there can also be result of negative or positive infinity. We will go more into detail with these results in the IEEE Floating Point Section. Below is my results from division by 0 on my system.</p>
 <pre class="c"><code>#include &lt;stdio.h&gt;
 
 int main(int argc, const char* argv[]){
-    int result1 = 0/0, result2 = 10/0, result3 = 0/10;
+    unsigned int result1 = 0/0, result2 = 10/0, result3 = 0/10;
 
     printf(&quot;\nzero/zero = %d&quot;, result1);
     printf(&quot;\nten/zero = %d&quot;, result2);
@@ -365,7 +365,7 @@ When changing a number from decimal to binary all you are really doing is changi
 - Octal       Base8       (0-7)
 - Hex         Base16      (0-F)
 - Decimal     Base10      (0-9)</code></pre>
-<p><br> <br> <br></p>
+<p><br> <br></p>
 </div>
 </div>
 <div id="signed-numbers-twos-complement" class="section level3">
@@ -390,8 +390,23 @@ When changing a number from decimal to binary all you are really doing is changi
 <li>Add <span class="math inline">\(1\)</span> -&gt; <span class="math inline">\(11111111\)</span> = <span class="math inline">\(-1\)</span></li>
 </ul>
 <hr />
-<p><br><br />
-<br></p>
+<p>Signed data types have a range, what happens if that range is exceeded? Thats right time to talk about <strong>overflow</strong> again. In C when there is overflow in some signed data type it leads to undefined behavior. In other words it will cause problems. Could be a simple program crash, infinite loop, or a dozen other random problems. UNDEFINED BEHAVIOR.</p>
+<p>Now lets consider the case <strong>dividing by 0</strong>. This is the same as it was in unsigned data types. Integer division by 0 envokes undefined behavior. Check out my results below.</p>
+<pre class="c"><code>#include &lt;stdio.h&gt;
+
+int main(int argc, const char* argv[]){
+    signed int result1 = 0/0, result2 = 10/0, result3 = 0/10;
+
+    printf(&quot;\nzero/zero = %d&quot;, result1);
+    printf(&quot;\nten/zero = %d&quot;, result2);
+    printf(&quot;\nzero/ten = %d\n\n&quot;, result3);
+}</code></pre>
+<pre><code>Output:
+zero/zero = -474114344
+ten/zero = 73896
+zero/ten = 0</code></pre>
+<p>Just like unsigned data types signed binary, octal, and hexidecimal values are input as ints with their specific prefixes 0b, 0, and 0x respectively. As most of us already know decimal has no prefix you just simply input the desired value.</p>
+<p><br></p>
 <div id="signed-data-types" class="section level4">
 <h4>Signed Data Types</h4>
 <table style="width:100%;">
@@ -426,19 +441,61 @@ When changing a number from decimal to binary all you are really doing is changi
 <tr class="even">
 <td>signed long</td>
 <td>8 bytes</td>
-<td>-9223372036854775808 to 9223372036854775807</td>
+<td>-9,223,372,036,854,775,808 to 9,223,372,036,854,775,807</td>
 </tr>
 </tbody>
 </table>
-<p><br> <br> <br></p>
+<p><br></p>
 </div>
-</div>
-<div id="introduction-1" class="section level3">
-<h3>Introduction</h3>
 </div>
 <div id="ieee-floating-point" class="section level3">
 <h3>IEEE Floating Point <a name="IEEE Floating Point"></a></h3>
-<p><br> <br> <br></p>
+<p>Signed and unsigned numbers have been covered now lets look into IEEE floating points. Floating points can be positive or negative and are stored alot differently than all of the other data types we have looked at so far. Because of this unique storage each floating point type has a <strong>precision</strong> measured in decimal places. Precision is the number of digits specified where <strong>accuracy</strong> is how close a number is to the true result. 3.14 is less precise than 3.149 but more accurate if we are comparing it to the value of pi. As you have probably guessed the floating point types with the highest range have the most precision. <br><br> Floating points have a massive range of values. There is a table below that shows the actual ranges and precision of different floating point types. Take a look. All floating points are stored in a specific form. This form is <span class="math inline">\(m \times b\)</span><sup>e</sup>. The variables are as follows:</p>
+<pre><code>- m = mantissa (fractional part)
+- b = base
+- e = exponet</code></pre>
+<div id="normalized-floating-points" class="section level4">
+<h4>Normalized Floating Points</h4>
+</div>
+<div id="denormalized-floating-points" class="section level4">
+<h4>Denormalized Floating Points</h4>
+<p><br></p>
+<table>
+<thead>
+<tr class="header">
+<th>Type</th>
+<th>Storage size</th>
+<th>Value range</th>
+<th>Precision (decimal places)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>float</td>
+<td>4 bytes</td>
+<td>1.2e<sup>-38</sup> to 3.4e<sup>+38</sup></td>
+<td>6</td>
+</tr>
+<tr class="even">
+<td>double</td>
+<td>8 bytes</td>
+<td>2.3e<sup>-308</sup> to 1.7e<sup>+308</sup></td>
+<td>15</td>
+</tr>
+<tr class="odd">
+<td>long double</td>
+<td>10 bytes</td>
+<td>3.4e<sup>-4932</sup> to 1.1e<sup>+4932</sup></td>
+<td>19</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+</div>
+<div id="precision-vs.accuracy" class="section level4">
+<h4>Precision vs. Accuracy</h4>
+<p><br> <br></p>
+</div>
 </div>
 <div id="refrences" class="section level3">
 <h3>Refrences <a name="Refrences"></a></h3>
@@ -452,6 +509,8 @@ When changing a number from decimal to binary all you are really doing is changi
 <li><a href="https://www.ascii-code.com/" class="uri">https://www.ascii-code.com/</a></li>
 <li><a href="https://www.geeksforgeeks.org/octal-numbers-c/" class="uri">https://www.geeksforgeeks.org/octal-numbers-c/</a></li>
 <li><a href="http://www.linfo.org/machine_code.html" class="uri">http://www.linfo.org/machine_code.html</a></li>
+<li><a href="https://www.tutorialspoint.com/cprogramming/c_data_types.html" class="uri">https://www.tutorialspoint.com/cprogramming/c_data_types.html</a></li>
+<li><a href="http://www.cs.yale.edu/homes/aspnes/pinewiki/C(2f)FloatingPoint.html" class="uri">http://www.cs.yale.edu/homes/aspnes/pinewiki/C(2f)FloatingPoint.html</a></li>
 </ul>
 </div>
 </div>

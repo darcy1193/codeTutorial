@@ -11,7 +11,7 @@ by Daniel Darcy
 - [Refrences](#Refrences)  
 <br>
 
-![](FeaturesofC.jpg)
+![](pictures/FeaturesofC.jpg)
 
 ### Introduction
   This is a introductory coding tutorial for students learning C. Many important aspects of the C language will be outlined and explained in this tutorial. The main topics will include storage, binary representations, unsigned numbers, signed numbers, ASCII codes, machine codes, two's compliment, IEEE floating point, precision, and accuracy.
@@ -81,16 +81,16 @@ Hex = 16
 <br>  
   There are 5 different arithmetic **operators used in C**. These operators include addition (+), subtraction (-), multiplication (*), division (/), and modulus or remainder (%). As many of us learned in CS 3240 we know addition and subraction are simple arithmetic but multiplication and division are too in a sense. Multiplication is completed through repeated addition. Modulus and division are completed through repeated subtraction.
 <br>  
-  Unsigned data types have a range, what happens if that range is exceeded? This is what we call **overflow**. In C when there is overflow in some unsigned data type it "wraps around". For example, if you take the maximum number which can be stored for some data type and add 1 to it the result would be 0. Add 2 and the result would be 1, etc, etc. Refer below for a more clear example.
+  Unsigned data types have a range, what happens if that range is exceeded? This is what we call **overflow**. In C when an unsigned data type exceeds its maximum value it does not overflow it "wraps around". For example, if you take the maximum number which can be stored for some data type and add 1 to it the result would be 0. Add 2 and the result would be 1, etc, etc. Refer below for a more clear example.
 <br><br>
-  The case of overflow in C has been covered, now lets consider the case **dividing by 0**. In C integer division of 0/0 is said to invoke undefined behavior. This means there could be many different results based on your specific system. In some cases the result can be a nan, which is short for "Not a Number". Any operation performed on a nan will produce a nan. In C there can also be result of negative or positive infinity. We will go more into detail with these results in the IEEE Floating Point Section. Below is my results from division by 0 on my system.
+  The case of overflow in unsigned datatypes has been covered, now lets consider the case **dividing by 0**. In C integer division of 0/0 is said to invoke undefined behavior. This means there could be many different results based on your specific system. In some cases the result can be a nan, which is short for "Not a Number". Any operation performed on a nan will produce a nan. In C there can also be result of negative or positive infinity. We will go more into detail with these results in the IEEE Floating Point Section. Below is my results from division by 0 on my system.
   
   
 ```C
 #include <stdio.h>
 
 int main(int argc, const char* argv[]){
-	int result1 = 0/0, result2 = 10/0, result3 = 0/10;
+	unsigned int result1 = 0/0, result2 = 10/0, result3 = 0/10;
 
 	printf("\nzero/zero = %d", result1);
 	printf("\nten/zero = %d", result2);
@@ -122,7 +122,7 @@ zero/ten = 0
   
 <br>
 
-![ASCII TABLE](asciiTable.gif)
+![ASCII TABLE](pictures/asciiTable.gif)
 <br>
 <br>
 
@@ -131,7 +131,7 @@ zero/ten = 0
   
   Mahcine code can be represented in binary or hexadecimal since hexadecimal is just a more compact version of binary. **Assembly language** is an easier to read version of machine code. An assembler is used to convert assembly language to machine code. Refer to the illustration below to observe what assembly code looks like.
 
-![](ALML.png)
+![](pictures/ALML.png)
 <br>
 <br>
 
@@ -143,7 +143,6 @@ zero/ten = 0
     - Hex         Base16      (0-F)
     - Decimal     Base10      (0-9)
     
-<br>
 <br>
 <br>
 
@@ -174,10 +173,32 @@ zero/ten = 0
   
 --------------  
   
-<br>  
-<br>  
+  Signed data types have a range, what happens if that range is exceeded? Thats right time to talk about **overflow** again. In C when there is overflow in some signed data type it leads to undefined behavior. In other words it will cause problems. Could be a simple program crash, infinite loop, or a dozen other random problems. UNDEFINED BEHAVIOR.
+  
+Now lets consider the case **dividing by 0**. This is the same as it was in unsigned data types. Integer division by 0 envokes undefined behavior. Check out my results below.
 
+```C
+#include <stdio.h>
 
+int main(int argc, const char* argv[]){
+	signed int result1 = 0/0, result2 = 10/0, result3 = 0/10;
+
+	printf("\nzero/zero = %d", result1);
+	printf("\nten/zero = %d", result2);
+	printf("\nzero/ten = %d\n\n", result3);
+}
+```
+
+```
+Output:
+zero/zero = -474114344
+ten/zero = 73896
+zero/ten = 0
+```
+
+  Just like unsigned data types signed binary, octal, and hexidecimal values are input as ints with their specific prefixes 0b, 0, and 0x respectively. As most of us already know decimal has no prefix you just simply input the desired value.
+
+<br>  
 
 ####  Signed Data Types
 
@@ -186,16 +207,33 @@ zero/ten = 0
 |signed char |1 byte|-128 to 127|
 |signed int	|2 or 4 bytes	|-32,768 to 32,767 or -2,147,483,648 to 2,147,483,647|
 |signed short	|2 bytes	|-32,768 to 32,767|
-|signed long	|8 bytes	|-9223372036854775808 to 9223372036854775807|
+|signed long	|8 bytes	|-9,223,372,036,854,775,808 to 9,223,372,036,854,775,807|
 
 <br>
-<br>
-<br>
 
-### Introduction
 ### IEEE Floating Point <a name="IEEE Floating Point"></a>
+  Signed and unsigned numbers have been covered now lets look into IEEE floating points. Floating points can be positive or negative and are stored alot differently than all of the other data types we have looked at so far. Because of this unique storage each floating point type has a **precision** measured in decimal places. Precision is the number of digits specified where **accuracy** is how close a number is to the true result. 3.14 is less precise than 3.149 but more accurate if we are comparing it to the value of pi.  As you have probably guessed the floating point types with the highest range have the most precision.
+<br><br>
+    Floating points have a massive range of values. There is a table below that shows the actual ranges and precision of different floating point types. Take a look. All floating points are stored in a specific form. This form is $m \times b$<sup>e</sup>. The variables are as follows:
+    
+    - m = mantissa (fractional part)
+    - b = base
+    - e = exponet
+
+#### Normalized Floating Points
+#### Denormalized Floating Points
 
 <br>
+
+  |Type	|Storage size	|Value range| Precision (decimal places) |
+|------------------|-------------------|----------------------------------------------|------------------|
+|float |4 bytes|	1.2e<sup>-38</sup> to 3.4e<sup>+38</sup>|6|
+|double	|8 bytes	|2.3e<sup>-308</sup> to 1.7e<sup>+308</sup>|15|
+|long double	|10 bytes	|3.4e<sup>-4932</sup> to 1.1e<sup>+4932</sup>|19|
+<br>
+
+#### Precision vs. Accuracy
+
 <br>
 <br>
 
@@ -209,4 +247,6 @@ zero/ten = 0
   - https://www.ascii-code.com/
   - https://www.geeksforgeeks.org/octal-numbers-c/
   - http://www.linfo.org/machine_code.html
+  - https://www.tutorialspoint.com/cprogramming/c_data_types.html
+  - http://www.cs.yale.edu/homes/aspnes/pinewiki/C(2f)FloatingPoint.html
     

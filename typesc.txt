@@ -99,18 +99,18 @@
        -Machine code
           -binary, hex, aseembly language
    Secton 3
-       Introduction
-       Signed numbers (two's complement)
+       -Introduction
+       -Signed numbers (two's complement)
           -range
-          binary, octal, hex, and decimal
-          + - * / %
-          overflow
-          divide by 0
+          -binary, octal, hex, and decimal
+          -+ - * / %
+          -overflow
+          -divide by 0
    Sercton 4
-       Introduction
+       -Introduction
        ieee floating point
-          range
-          approximate precision in decimal (what does it mean)
+          -range
+          -approximate precision in decimal (what does it mean)
           normalized and denormalized values
           +0 -0, NaN (s), Infinity and -Infinity
           overflow and underflow
@@ -131,8 +131,11 @@ MY NOTES:
 -octal prefix - 0
 -binary prefix - 0b or 0B
 -hex prefix - 0x
-program for printing out storage size for different data types
+program for printing out storage size for different data types CODE
 -ptrogram for illustrating overflow
 -program for illustrating assigning hex, octal, binary, to int
 big endian and little endian
-MSP430 example
+MSP430 example CODE
+signed data types overflow CODE
+unsigned data types overflow CODE
+floating point precision/accuracy CODE
