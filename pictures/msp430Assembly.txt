@@ -1,0 +1,25 @@
+public mul_horner_int
+       
+RSEG CODE
+       
+mul_horner_int
+
+            mov.w     R12,R13               ; The operand "input" in register R12
+            rla.w     R13            
+            add.w     R12,R13               ; X1=X*2^1+X
+            rla.w     R13
+            rla.w     R13
+            add.w     R12,R13               ; X2=X1*2^2+X
+            rla.w     R13
+            add.w     R12,R13               ; X3=X2*2^1+X
+            rla.w     R13
+            add.w     R12,R13               ; X4=X4*2^1+X
+            rla.w     R13
+            rla.w     R13
+            rla.w     R13
+            add.w     R12,R13               ; Final Result=X5=X4*2^3+X
+            mov.w     R13,R12               ; The final answer returned to the
+                                            ; calling function
+            ret
+            END
+

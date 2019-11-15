@@ -83,7 +83,7 @@ Hex = 16
 <br>  
   Unsigned data types have a range, what happens if that range is exceeded? This is what we call **overflow**. In C when an unsigned data type exceeds its maximum value it does not overflow it "wraps around". For example, if you take the maximum number which can be stored for some data type and add 1 to it the result would be 0. Add 2 and the result would be 1, etc, etc. Refer below for a more clear example.
 <br><br>
-  The case of overflow in unsigned datatypes has been covered, now lets consider the case **dividing by 0**. In C integer division of 0/0 is said to invoke undefined behavior. This means there could be many different results based on your specific system. In some cases the result can be a nan, which is short for "Not a Number". Any operation performed on a nan will produce a nan. In C there can also be result of negative or positive infinity. We will go more into detail with these results in the IEEE Floating Point Section. Below is my results from division by 0 on my system.
+  The case of overflow in unsigned datatypes has been covered, now lets consider the case **dividing by 0**. In C integer division of 0/0 is said to invoke undefined behavior. This means there could be many different results based on your specific system. In some cases results can be a nan, which is short for "Not a Number". Any operation performed on a nan will produce a nan. In C there can also be some other special "values". We will go more into detail with these results in the IEEE Floating Point Section. Below is my results from division by 0 on my system.
   
   
 ```C
@@ -129,9 +129,46 @@ zero/ten = 0
 #### Machine Code
   Machine code is a language which can be read by a CPU. All CPUs have their own specific language though they are all very similar. When a C program is compiled it is translated into machine code. The machine code is then saved on a file which we know as an executable. This executable file (machine code) is fed into the CPU when the user runs the program.
   
-  Mahcine code can be represented in binary or hexadecimal since hexadecimal is just a more compact version of binary. **Assembly language** is an easier to read version of machine code. An assembler is used to convert assembly language to machine code. Refer to the illustration below to observe what assembly code looks like.
+  Mahcine code can be represented in binary or hexadecimal since hexadecimal is just a more compact version of binary. **Assembly language** is an easier to read version of machine code. An assembler is used to convert assembly language to machine code. Refer to the illustrations below to observe what assembly code looks like.
 
 ![](pictures/ALML.png)
+<br>
+<br>
+
+#### x86 Assembly Code
+
+![x86 Assembly Code](pictures/x86Assembly.png)
+<br>
+<br>
+
+#### MSP430 Assembly Code (CS3240)
+```
+public mul_horner_int
+       
+RSEG CODE
+       
+mul_horner_int
+
+            mov.w     R12,R13               ; The operand "input" in register R12
+            rla.w     R13            
+            add.w     R12,R13               ; X1=X*2^1+X
+            rla.w     R13
+            rla.w     R13
+            add.w     R12,R13               ; X2=X1*2^2+X
+            rla.w     R13
+            add.w     R12,R13               ; X3=X2*2^1+X
+            rla.w     R13
+            add.w     R12,R13               ; X4=X4*2^1+X
+            rla.w     R13
+            rla.w     R13
+            rla.w     R13
+            add.w     R12,R13               ; Final Result=X5=X4*2^3+X
+            mov.w     R13,R12               ; The final answer returned to the
+                                            ; calling function
+            ret
+            END
+
+```
 <br>
 <br>
 
@@ -220,10 +257,38 @@ zero/ten = 0
     - b = base
     - e = exponet
 
-#### Normalized Floating Points
-#### Denormalized Floating Points
+#### Normalized Values
+  A floating point number is said to be normalized when the integer part of the mantissa is exactly 1. For example the number 13.25 written in binary would be 1101.01 where 1001=13 and .01=.25. In this example 1101 is the integer part and 01 is the fraction part. 1101.01*(2^0) is not normalized because the integer part is not 1. So in order to normalize me must move the decimal point. To do this we have to know the rule "we are allowed to shift the mantissa to the right one digit if we increase the exponet by 1". Doing this gives us the following result:
+
+  - 1101.01 * (2<sup>0</sup>) -   Integer part is 13
+  - 110.101 * (2<sup>1</sup>) -   Integer part is 6
+  - 11.0101 * (2<sup>2</sup>) -   Integer part is 3
+  - 1.10101 * (2<sup>3</sup>) -   Integer part is 1
+  - 1.10101 * (2<sup>3</sup>) is 13.25 in Normalized Form
+  
 
 <br>
+
+#### Denormalized Values
+  Since a floating point number is said to be normalized when the integer part of the mantissa is exactly 1 we know that any denormalized floating point numver is said to be denormalized when the integer part of the mantissa is not exactly 1. The above calculation illustrates how to change a denormalized value to a normalized value. <br> <br>
+  
+#### Rounding
+  Just like unsigned and signed data types floating points are also capable of using addition, subtraction, multiplication and division operations. Floating point addition, subtraction, multiplication and division usually can be executed without any problems but sometimes there are rounding errors. Rounding errors are the difference between the result produced by a given algorithm and the result produced form same algorithm using floating points rounded arithmetic. One famous example is .1 + .2 != .3 in C. Check out the example below.<br> <br>
+
+# FP CODE
+
+  Because of how the floating point rounds things you see the result is not very accurate. Set it to one decimal point of precision and you are okay but otherwise the answer is wrong. This is important to keep in mind whenever using floating point variables. <br> <br>
+  
+#### Floating Point Overflow and Underflow
+  Though there is a huge value of ranges for floating points they can still overflow. When a floating point overflows the value is set to **inf**, or infinity. Not only is there overflow but there is also underflow. Underflow is the same concept but happens at the lowest possible value for floating points. If you subtract 1 from the lowest possible floating point value the result would be **-inf**, or -infinity. Not only is there positive and negative infinity but there is also **NaN** which stands for not a number. Nans are produced from doing unlogical operations. For example if you were to attempt to take sqrt(-1) in C the result would be a Nan. It is impossible to take the sqrt(-1) so this is C's way of telling you that. Nans can also be produced from an operation that leads to undefined behavior.<br><br>
+  These are not the only funky values in C. There is +0 and -0! Though their bit pattern is different they actually appear to be the same when compared. They produce the same result when dividing or multiplying with a number.
+
+
+
+
+<br>
+
+####  Floating Point Data Types
 
   |Type	|Storage size	|Value range| Precision (decimal places) |
 |------------------|-------------------|----------------------------------------------|------------------|
@@ -232,8 +297,6 @@ zero/ten = 0
 |long double	|10 bytes	|3.4e<sup>-4932</sup> to 1.1e<sup>+4932</sup>|19|
 <br>
 
-#### Precision vs. Accuracy
-
 <br>
 <br>
 
@@ -241,6 +304,7 @@ zero/ten = 0
   - *Understanding Floating Point Numbers* by Eric Sakk
   - *Understanding Binary Numbers* by Eric Sakk
   - *The C Programming Language* by Brian Kernighan and Dennis Ritchie
+  - *Numerical Computing with IEEE Floating Point Arithmetic* by Micheal L. Overton
   - https://gcc.gnu.org/
   - https://webstore.ansi.org
   - https://www.ntu.edu.sg/home/ehchua/programming/java/DataRepresentation.html
@@ -249,4 +313,5 @@ zero/ten = 0
   - http://www.linfo.org/machine_code.html
   - https://www.tutorialspoint.com/cprogramming/c_data_types.html
   - http://www.cs.yale.edu/homes/aspnes/pinewiki/C(2f)FloatingPoint.html
+  - https://en.wikipedia.org/wiki/Round-off_error
     
