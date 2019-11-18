@@ -45,9 +45,9 @@
    signed - max, min
    unsigned - max, min
    floating - max, min. binary precision, 
-              approximate precision in decimal (what does it mean)
-              normalized and denormalized values
-              +0 -0, NaN (s), Infinity and -Infinity
+              -approximate precision in decimal (what does it mean)
+              -normalized and denormalized values
+              -+0 -0, NaN (s), Infinity and -Infinity
    
    -Differencce between precision and accuracy
    Round off in floating point
@@ -131,12 +131,17 @@ MY NOTES:
 -octal prefix - 0
 -binary prefix - 0b or 0B
 -hex prefix - 0x
-program for printing out storage size for different data types CODE
+-program for printing out storage size for different data types CODE
 -ptrogram for illustrating overflow
 -program for illustrating assigning hex, octal, binary, to int
-big endian and little endian
-MSP430 example CODE
-signed data types overflow CODE
-unsigned data types overflow CODE
-floating point precision/accuracy CODE
-0.1 + 0.2 does NOT equal 0.3:
+-big endian and little endian
+-MSP430 example CODE
+-signed data types overflow/underflow CODE
+-unsigned data types overflow CODE
+-floating point overflow/underflow CODE
+-floating point precision/accuracy - 0.1 + 0.2 does NOT equal 0.3 - CODE 
+-printing different data types signed, unsigned, fp
+DOCUMENTATION
+-max and min values CODE
+
+-printValues and maxesAndMins not on .md document
