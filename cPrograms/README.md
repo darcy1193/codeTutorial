@@ -12,4 +12,10 @@ This folder contains all of the cPrograms.
 - signedFlow.c - Shows overflow and underflow in signed ints.
 - signedZeroDivision.c - Shows what happens from division by 0 with signed integers.
 - unsignedFlow.c - Shows overflow and underflow in unsigned ints.
+- wordSize.c - Shows how to calculate wordsize on your system.
+- fpClassification.c - Shows how to detect and print nans, infs and other funky vars.
+- errors.c - Shows how to calculate absolute and relative error.
+- wordAddressing.c - Shows how word addressing works.
+- byteAddressing.c - Shows how byte addressing works.
+- epsilon.c - Shows how to find machine epsilon FLT_EPSILON AND DBL_EPSILON.
 - outputFiles - All output from above file is printed to its own output file with the c extension changed to txt.

@@ -82,6 +82,67 @@ Hex = 16
 ```
 <br>
 
+#### Byte Addressing
+  As mentioned earlier there are 8 bits in a byte. One byte can be represented by a hexadecimal digit ranging from 0-f. When declaring any variable that is size 1 byte, byte addressing is used. For this example the char datatype will be used. For each char declared 1 byte of memory is allocated therefore the hexadecimal address will be incremented by one byte (if declared consecutively). This is illustrated in the example below.
+  
+```C
+//byteAddressing.c
+#include <stdio.h>
+
+int main()
+{
+	char a = 'a';
+	char b = 'b';
+	char c = 'c';
+
+	printf("The address of a is %p", &a);
+	printf("\nThe address of b is %p", &b);
+	printf("\nThe address of c is %p\n", &c);
+
+	return 0;
+}
+```
+
+```
+Output:
+The address of a is 0x7ffeef5f95bb
+The address of b is 0x7ffeef5f95ba
+The address of c is 0x7ffeef5f95b9
+```
+  
+<br>
+
+#### Word Addressing
+  A word is the amount of data that a machine can process at one time. In other words the size of a processor's general purpose register is equal to its word size. Based on this definition a word can be 32 bits or 64 bits depending on your machines processor. So unlike byte addressing, word addresses either increment by 4 or 8 bytes for each allocated variable. this is illustrated in the example below.
+  
+```C
+//wordAddressing.c
+#include <stdio.h>
+
+int main(){
+
+	int a = 1;
+	int b = 2;
+	int c = 3;
+
+	printf("The address of a is %p", &a);
+	printf("\nThe address of b is %p", &b);
+	printf("\nThe address of c is %p\n", &c);
+
+	return 0;
+}
+```
+
+```
+Output:
+The address of a is 0x7ffee3a845b8
+The address of b is 0x7ffee3a845b4
+The address of c is 0x7ffee3a845b0
+
+```
+  
+<br>
+
 -----
 
 ### Unsigned Numbers <a name="Unsigned Numbers"></a> 
@@ -240,6 +301,24 @@ mul_horner_int
     - Decimal     Base10      (0-9)
     
 <br>
+
+#### N Z V C Flags
+  In assembly language there are special bits used to indicate the state of an answer after an operation has been carried out on two values. These bits are known as N, Z, V, and C. These flags (or bits) are explained more thoroughly below.
+  
+      N = Negative bit -> answer is negative
+      Z = Zero bit -> answer is zero
+      V = Overflow bit -> answer is to big of value for memory
+      C = Carry bit -> if operation produced a carry (borrow on subtraction)
+      
+      An example: (with hex values)
+      AC + 8A = 36
+      
+      N = 0
+      Z = 0
+      V = 1
+      C = 1
+
+<br>
 <br>
 
 -----
@@ -264,10 +343,19 @@ mul_horner_int
 
 --------------
 
-  - Convert $1$ to $-1$.
-  - $1$ in binary -> $00000001$.
-  - Invert all bits -> $11111110$
-  - Add $1$ -> $11111111$ = $-1$
+  1. Convert ``1`` to ``-1`` (8-bit)
+  2. ``1`` in binary -> ``00000001``
+  3. Invert all bits -> ``11111110``
+  4. Add ``1`` to inversion: (this is independent of step 2, always add 1)<br>
+  ``11111110`` <br>
+  ``00000001`` <br>
+  ---------------- <br>
+  ``11111111`` AKA ``-1`` <br> <br>
+  
+
+  Example: 4 and -4 (32 bit) <br>
+  ``00000000 00000000 00000000 00000100`` = ``4`` <br>
+  ``10000000 00000000 00000000 00000100`` = ``-4``
   
 --------------  
 
@@ -351,14 +439,14 @@ zero/ten = 0
 <br><br>
     Floating points have a massive range of values. There is a table below that shows the actual ranges and precision of different floating point types. Take a look. All floating points are stored in a specific form. This form is $m \times b$<sup>e</sup>. The variables are as follows:
     
-    - m = mantissa (fractional part)
+    - m = significand (fractional part)
     - b = base
     - e = exponet
 
 <br>
 
 #### Normalized Values
-  A floating point number is said to be normalized when the integer part of the mantissa is exactly 1. For example the number 13.25 written in binary would be 1101.01 where 1001=13 and .01=.25. In this example 1101 is the integer part and 01 is the fraction part. 1101.01*(2^0) is not normalized because the integer part is not 1. So in order to normalize me must move the decimal point. To do this we have to know the rule "we are allowed to shift the mantissa to the right one digit if we increase the exponet by 1". Doing this gives us the following result:
+  A floating point number is said to be normalized when the integer part of the significand is exactly 1. For example the number 13.25 written in binary would be 1101.01 where 1001=13 and .01=.25. In this example 1101 is the integer part and 01 is the fraction part. 1101.01*(2^0) is not normalized because the integer part is not 1. So in order to normalize me must move the decimal point. To do this we have to know the rule "we are allowed to shift the significand to the right one digit if we increase the exponet by 1". Doing this gives us the following result:
 
   - 1101.01 * (2<sup>0</sup>) -   Integer part is 13
   - 110.101 * (2<sup>1</sup>) -   Integer part is 6
@@ -370,10 +458,10 @@ zero/ten = 0
 <br>
 
 #### Denormalized Values
-  Since a floating point number is said to be normalized when the integer part of the mantissa is exactly 1 we know that any denormalized floating point number is said to be denormalized when the integer part of the mantissa is not exactly 1. The above calculation illustrates how to change a denormalized value to a normalized value. <br> <br>
+  Since a floating point number is said to be normalized when the integer part of the significand is exactly 1 we know that any denormalized floating point number is said to be denormalized when the integer part of the significand is not exactly 1. The above calculation illustrates how to change a denormalized value to a normalized value. <br> <br>
   
 #### Rounding
-  Just like unsigned and signed data types floating points are also capable of using addition, subtraction, multiplication and division operations. Floating point addition, subtraction, multiplication and division usually can be executed without any problems but sometimes there are rounding errors. Rounding errors are the difference between the result produced by a given algorithm and the result produced form same algorithm using floating points rounded arithmetic. One famous example is .1 + .2 != .3 in C. Check out the example below.<br> <br>
+  Just like unsigned and signed data types floating points are also capable of using addition, subtraction, multiplication and division operations. Floating point addition, subtraction, multiplication and division usually can be executed without any problems but sometimes there are rounding errors. Rounding errors are the difference between the result produced by a given algorithm and the result produced form same algorithm using floating points rounded arithmetic. One famous example is .1 + .2 != .3 in C. Check out the example below.<br> 
 
 ```C
 //fpRoundoff.c
@@ -383,16 +471,94 @@ zero/ten = 0
 int main( int argc, const char* argv[] ){
 	float a = 0.1, b = 0.2, c;
 	c = a + b;
+
+	float d = 0.3;
+	if(d != 0.3)
+		printf("d != .0.3\n\n");
 	printf(".1 + .2 = %.10f\n\n", c);		//displays 6 accurate digits of precision
+	printf("d = %.10f\n\n", d);		//Shows even when simply assigned d is not truely 0.3 because of roundoff
 }
 ```
 
 ```
 Output:
+d != .0.3
 .1 + .2 = 0.3000000119
+d = 0.3000000119
 ```
 
   Because of how the floating point rounds numbers you see the result is not extremely accurate. Set it between 1 and 6 decimal points of precision and you are okay but otherwise the answer is wrong. This is important to keep in mind whenever using floating point variables. <br> <br>
+  
+#### Absolute Error and Relative Error
+  **Absolute error** is the amount of error in measurement period. <br>
+  **Relative error** indicates how good a measurement is relative to what ever is being measured. 
+  
+$Relative$ $Error$ = $\frac{Absolute-Error}{Value-Being-Measured}$	<br>
+
+  This error is usually measured in terms of epsilon. In C there is **machine epsilon**, **FLT_EPSILON**, and **DBL_EPSILON**. Machine epsilon is an upper bound on relative error due to rounding in floating point arithmetic. It is the smallest number of epsilon such that 1 + epsilon != 1. This value is machine dependent as well as dependent on data type. The macros FLT_EPSILON and DBL_EPSILON can be used to find the epsilon values for floats and doubles in C. 
+  Below is a program which compares absolute and relative error in some different situations. 
+
+```C
+//errors.c
+/**This Code was obtained from http://www.cs.otago.ac.nz/cosc326/Support/absrel.htm**/
+#include <float.h>
+#include <math.h>
+#include <stdio.h>
+
+static float abserr(float derived, float correct) {
+    return fabsf(derived - correct);
+}
+static float relerr(float derived, float correct) {
+    return fabsf((derived - correct)/correct);
+}
+static void show(char const *label, float derived, float correct) {
+    printf("%s  %.1e  %.1e\n", label,
+        abserr(derived, correct), relerr(derived, correct));
+}
+int main(void) {
+    union { float f; unsigned u; } pun;
+    float const m = powf(2.0f, -24);
+
+    printf("          absolute relative\naround    error    error\n");
+
+    pun.f = FLT_MIN;
+    pun.u++;
+    show("FLT_MIN+", pun.f, FLT_MIN);
+    pun.f = m;
+    pun.u++;
+    show("6.0e-8+ ", pun.f, m);
+    pun.f = 1.0f;
+    pun.u--;
+    show("1.0-    ", pun.f, 1.0f);
+    pun.f = 1.0f;
+    pun.u++;
+    show("1.0+    ", pun.f, 1.0f);
+    pun.f = 1.0f/m;
+    pun.u--;
+    show("1.7e+7- ", pun.f, 1.0f/m);
+    pun.f = FLT_MAX;
+    pun.u--;
+    show("FLT_MAX-", pun.f, FLT_MAX);
+
+    return 0;
+}
+```
+
+```
+Output:
+          absolute relative
+around    error    error
+FLT_MIN+  1.4e-45  1.2e-07
+6.0e-8+   7.1e-15  1.2e-07
+1.0-      6.0e-08  6.0e-08
+1.0+      1.2e-07  1.2e-07
+1.7e+7-   1.0e+00  6.0e-08
+FLT_MAX-  2.0e+31  6.0e-08
+```
+
+  Absolute error increases but relative error stays between 1.2e-7 and 1.2e-7/2.
+
+<br>
   
 #### Floating Point Overflow and Underflow
   Though there is a huge value of ranges for floating points they can still overflow. When a floating point overflows the value is usually to **inf**, or infinity. Not only is there overflow but there is also underflow. Underflow is the same concept but happens at the lowest possible value for floating points. If you subtract 1 from the lowest possible floating point value the result would be **-inf**, or -infinity. Not only is there positive and negative infinity but there is also **NaN** which stands for not a number. Nans are produced from doing unlogical operations. For example if you were to attempt to take sqrt(-1) in C the result would be a Nan. It is impossible to take the sqrt(-1) so this is C's way of telling you that. Nans can also be produced from an operation that leads to undefined behavior.<br><br>
@@ -425,8 +591,52 @@ Overflow (max+1) = 340282346638528859811704183484516925440.000000
 Underflow (min-1) = -340282346638528859811704183484516925440.000000
 ```
 
+<br>
+
+#### fpclassify(float x), isinf(float x), and isnan(float x)
+  There are actually ways to detect and print the funky values mentioned above. **fpclassify()** is the best way to do this unless specifically looking for a nan or inf. A simple program below shows how this can be done. If specifically checking for nan or infinity the functions **isinf()** and **isnan()** can be used. These 2 functions return a value of either 1 or 0 which corresponds with true and false.
+<br>
+
+```C
+//fpClassification.c
+/**This Code was obtained from https://en.cppreference.com/w/c/numeric/math/fpclassify**/
+
+#include <stdio.h>
+#include <math.h>
+#include <float.h>
+
+const char *show_classification(double x) {
+    switch(fpclassify(x)) { //fpclassify()'s return values include the case values below
+        case FP_INFINITE:  return "Inf";
+        case FP_NAN:       return "NaN";
+        case FP_NORMAL:    return "normal";
+        case FP_SUBNORMAL: return "subnormal";
+        case FP_ZERO:      return "zero";
+        default:           return "unknown";
+    }
+}
+int main(void){
+    printf("1.0/0.0 is %s\n", show_classification(1/0.0));
+    printf("0.0/0.0 is %s\n", show_classification(0.0/0.0));
+    printf("DBL_MIN/2 is %s\n", show_classification(DBL_MIN/2));
+    printf("-0.0 is %s\n", show_classification(-0.0));
+    printf("1.0 is %s\n", show_classification(1.0));
+}
+
+```
+
+```
+Output:
+1.0/0.0 is Inf
+0.0/0.0 is NaN
+DBL_MIN/2 is subnormal
+-0.0 is zero
+1.0 is normal
+```
 
 <br>
+<br>
+
 
 ####  Floating Point Data Types
 
