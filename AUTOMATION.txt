@@ -1,4 +1,4 @@
-AUTOMATION FOR C PROGRAMS FOUND IN codeTutorial/cPrograms
+AUTOMATION FOR C PROGRAMS FOUND IN codeTutorial/cPrograms using makefile
 	
 Compiling:  To compile the programs described in the CCodeTutorial.md file one must start in the root folder "codeTutorial" and "cd" into the directory "cPrograms". Once in the "cPrograms" directory the command "make" will compile all c programs.	
 

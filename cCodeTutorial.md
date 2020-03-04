@@ -22,9 +22,9 @@ by Daniel Darcy
 
 --------
 
-### ANSI Standard C and GCC <a name="ANSI Standard C and GCC"></a> 
-  **ANSI** and **GCC** are two things every computer science major should be familiar with. ANSI is an acronym for American National Standards Institute, that is the organization which sets the national standards for products, services, processes, systems, and personnel in the United States. GCC is an acronym for GNU Compiler Collection. GCC is a key componet and standard compiler for most projects written for Linux, including the Linux kernel. 
-  
+### ANSI Standard C and GCC <a name="ANSI Standard C and GCC"></a>
+  **ANSI** and **GCC** are two things every computer science major should be familiar with. ANSI is an acronym for American National Standards Institute, that is the organization which sets the national standards for products, services, processes, systems, and personnel in the United States. GCC is an acronym for GNU Compiler Collection. GCC is a key componet and standard compiler for most projects written for Linux, including the Linux kernel.
+
       "For many years, the definition of C was the refrence manual in the first edition of The C Programming Language. In 1983, the American National Standards Institute (ANSI) established a committee to provide a modern comprehensive definition of C. The resulting definition, the ANSI standard, or "ANSI C," was completed late in 1988. Most features of the standard are already supported by modern compilers."       
 
     - Kernighan & Ritchie
@@ -49,26 +49,26 @@ by Daniel Darcy
   In C there are various different data types for storing numbers. Some data types are more complicated than others but for now we will just focus on the simple ones. All numbers are stored in binary form on computers since everything must be in terms of on or off but different data types have different ranges. Each byte consists of 8 different bits. Each bit can either be on or off (T or F). Even octal and hex values must be converted to binary for storage. The reason different data types have different ranges is due to their storage space. <br>
   Also binary numbers can be either big endian or little endian. Big endian means the most significant bits are stored at the end and little indian means the least significant bits will be stored in the end (with the end being the right side).
 Big endian is usually used in networking protocols and little endian is usually used for processor architects and their memory. We will be working with little endian.
-  
+
     bitstring = 00000001
-    
+
     Big endian value = 256
     Little endian value = 1
 
 <br>
   Storage space for numeric data types in C ranges from 1-8 bytes (8-64 bits!). The **smallest data type** is a char, it uses one byte of storage. The **largest data type** is a long, it uses 8 bytes of storage. There are some data types inbetween char and long such as short and int. Shorts cost 2 bytes to store and ints cost either 2 or 4 bytes to store depending on computer specifications. There is a chart below which lists simple unsigned numeric types, ranges, and storage size. Although there is no binary, octal, or hex type these datatypes can still be used and stored as integers as long as the correct prefix is used. The prefixes are 0b, 0, and 0x respectively.
-  
+
 ```C
 //bohAssignment.c
 
 #include <stdio.h>
-  
+
 int main(int argc, const char* argv[]){
 
   int binary = 0b00000010;		//Binary value for 2
   int octal = 010;					//Octal value for 8
   int hex = 0x0010;				//Hex value for 16
-  
+
   printf("\nBinary = %d", binary);
   printf("\nOctal = %d", octal);
   printf("\nHex = %d\n\n", hex);
@@ -85,7 +85,7 @@ Hex = 16
 
 #### Byte Addressing
   As mentioned earlier there are 8 bits in a byte. One byte can be represented by a hexadecimal digit ranging from 0-f. When declaring any variable that is size 1 byte, byte addressing is used. For this example the char datatype will be used. For each char declared 1 byte of memory is allocated therefore the hexadecimal address will be incremented by one byte (if declared consecutively). This is illustrated in the example below.
-  
+
 ```C
 //byteAddressing.c
 #include <stdio.h>
@@ -110,12 +110,12 @@ The address of a is 0x7ffeef5f95bb
 The address of b is 0x7ffeef5f95ba
 The address of c is 0x7ffeef5f95b9
 ```
-  
+
 <br>
 
 #### Word Addressing
   A word is the amount of data that a machine can process at one time. In other words the size of a processor's general purpose register is equal to its word size. Based on this definition a word can be 32 bits or 64 bits depending on your machines processor. So unlike byte addressing, word addresses either increment by 4 or 8 bytes for each allocated variable. this is illustrated in the example below.
-  
+
 ```C
 //wordAddressing.c
 #include <stdio.h>
@@ -141,21 +141,21 @@ The address of b is 0x7ffee3a845b4
 The address of c is 0x7ffee3a845b0
 
 ```
-  
+
 <br>
 
 -----
 
-### Unsigned Numbers <a name="Unsigned Numbers"></a> 
+### Unsigned Numbers <a name="Unsigned Numbers"></a>
   Numbers can either be positive, negative, or 0. With unsigned numbers we are only worried about positive numbers and 0. In C all unsigned numbers are stored in binary form. To find the range for a specific unsigned data type we must know how many bytes of storage the data type uses. Multiply the number of bytes by 8 (8 bits in a byte) and raise 2 to that number. For example what is the range of an unsigned char?<br>
-  
+
 ----------------------
-  
+
   - As mentioned above a char uses 1 byte for storage.
   - $1 \times 8$ = $8$
   - 2<sup>8</sup> = $256$ (-1 for 0)
   - Range = $0-255$
-  
+
 ---------------------
 
   It is worth noting that since integers are used to store binary, octal, and hexidecimal values their range depends on the size of an int on your specific system (2 or 4 bytes).
@@ -177,7 +177,7 @@ The address of c is 0x7ffee3a845b0
 int main( int argc, const char* argv[] ){
 	unsigned int max = INT_MAX;
 	unsigned int min = 0;
-	
+
 	printf("max = %d", max);			//Show max is sotred correctly
 	printf("\nmin = %d", min);		//Show min is stored correctly
 	max = max+1;
@@ -199,8 +199,8 @@ Underflow (min-1) = -1
 
 #### Unsigned Division by 0
   The case of overflow in unsigned datatypes has been covered, now lets consider the case **dividing by 0**. In C integer division of 0/0 is said to invoke undefined behavior. This means there could be many different results based on your specific system. In some cases results can be a nan, which is short for "Not a Number". Any operation performed on a nan will produce a nan. In C there can also be some other special "values". We will go more into detail with these results in the IEEE Floating Point Section. Below is my results from division by 0 on my system.
-  
-  
+
+
 ```C
 //IntZeroDivision.c
 
@@ -236,9 +236,9 @@ zero/ten = 0
 
 -----
 
-### ASCII Codes <a name="ASCII Codes"></a> 
+### ASCII Codes <a name="ASCII Codes"></a>
   ASCII stands for American Standard Code for Information Interchange. ASCII is a 7-bit character code where every bit represents some unique character. ASCII was developed for telegraph code by Bell Data Services and has since been adapted for computer systems. ASCII codes represent printable characters and control characters. Printable characters are the focus here. The control characters were created for controlling certain devices and consist of the first 32 characters on the below ASCII table. Since ASCII codes are just numbers that represent characters they can also be converted to binary, decimal, and even octal numbers.
-  
+
 <br>
 
 ![ASCII TABLE](pictures/asciiTable.gif)
@@ -247,9 +247,9 @@ zero/ten = 0
 
 -----
 
-### Machine Code <a name="Machine Code"></a> 
+### Machine Code <a name="Machine Code"></a>
   Machine code is a language which can be read by a CPU. All CPUs have their own specific language though they are all very similar. When a C program is compiled it is translated into machine code. The machine code is then saved on a file which we know as an executable. This executable file (machine code) is fed into the CPU when the user runs the program.
-  
+
   Mahcine code can be represented in binary or hexadecimal since hexadecimal is just a more compact version of binary. **Assembly language** is an easier to read version of machine code. An assembler is used to convert assembly language to machine code. Refer to the illustrations below to observe what assembly code looks like.
 
 ![](pictures/ALML.png)
@@ -265,9 +265,9 @@ zero/ten = 0
 #### MSP430 Assembly Code (CS3240)
 ```
 public mul_horner_int
-       
+
 RSEG CODE
-       
+
 mul_horner_int
 
             mov.w     R12,R13               ; The operand "input" in register R12
@@ -295,25 +295,25 @@ mul_horner_int
 
     NOTE:
     When changing a number from decimal to binary all you are really doing is changing the way that number will be represented. In this example changing the number from base 10 (digits range 0-9) to base 2 (digits range 0-1) does not change the number being represented. Computers use base 2 numbers because everything is stored in terms of on and off but hexadecimal and octal are also commonly used in computing as a compact way of representing binary numbers.
-   
+
     - Binary      Base2       (0-1)
     - Octal       Base8       (0-7)
     - Hex         Base16      (0-F)
     - Decimal     Base10      (0-9)
-    
+
 <br>
 
 #### N Z V C Flags
   In assembly language there are special bits used to indicate the state of an answer after an operation has been carried out on two values. These bits are known as N, Z, V, and C. These flags (or bits) are explained more thoroughly below.
-  
+
       N = Negative bit -> answer is negative
       Z = Zero bit -> answer is zero
       V = Overflow bit -> answer is to big of value for memory
       C = Carry bit -> if operation produced a carry (borrow on subtraction)
-      
+
       An example: (with hex values)
       AC + 8A = 36
-      
+
       N = 0
       Z = 0
       V = 1
@@ -334,11 +334,11 @@ mul_horner_int
   - 2<sup>8</sup> = $256$ (-1 for 0)
   - $256/2$ = $128$
   - Range = $-128$ to $127$
-  
+
 --------------
 
   Interesting right? Similar to the unsigned char the signed char can hold 256 different values. The difference is that instead of ranging from 0-255 the unsigned values range from -127 to 128. This is possible and works out nicely because unsigned numbers are stored as two's complement. To convert a number from positive to negative (two's compliment) all we have to do is invert all of the bits of that positive number and add 1 to the result. Check out the example below.
-  
+
   Conversion from positive binary number to negative two's complement binary number:
 <br>
 
@@ -352,19 +352,19 @@ mul_horner_int
   ``00000001`` <br>
   ---------------- <br>
   ``11111111`` AKA ``-1`` <br> <br>
-  
+
 
   Example: 4 and -4 (32 bit) <br>
   ``00000000 00000000 00000000 00000100`` = ``4`` <br>
   ``10000000 00000000 00000000 00000100`` = ``-4``
-  
+
 --------------  
 
 <br>
 
 #### Signed Overflow
   Signed data types have a range, what happens if that range is exceeded? Thats right time to talk about **overflow** again. In C when there is overflow in some signed data type it leads to undefined behavior. In other words it will cause problems. Could be a simple program crash, infinite loop, the value could wrap around, value could stay at maximum, or a dozen other random results. UNDEFINED BEHAVIOR. My sytems results are below.
-  
+
 ```C
 //signedFlow.c
 
@@ -439,7 +439,7 @@ zero/ten = 0
   Signed and unsigned numbers have been covered now lets look into IEEE floating points. Floating points can be positive or negative and are stored alot differently than all of the other data types we have looked at so far. Because of this unique storage each floating point type has a **precision** measured in decimal places. Precision is the number of digits specified where **accuracy** is how close a number is to the true result. 3.14 is less precise than 3.149 but more accurate if we are comparing it to the value of pi (3.1459).  The floating point types with the highest range have the most precision.
 <br><br>
     Floating points have a massive range of values. There is a table below that shows the actual ranges and precision of different floating point types. Take a look. All floating points are stored in a specific form. This form is $m \times b$<sup>e</sup>. The variables are as follows:
-    
+
     - m = significand (fractional part)
     - b = base
     - e = exponet
@@ -454,15 +454,15 @@ zero/ten = 0
   - 11.0101 * (2<sup>2</sup>) -   Integer part is 3
   - 1.10101 * (2<sup>3</sup>) -   Integer part is 1
   - 1.10101 * (2<sup>3</sup>) is 13.25 in Normalized Form
-  
+
 
 <br>
 
 #### Denormalized Values
   Since a floating point number is said to be normalized when the integer part of the significand is exactly 1 we know that any denormalized floating point number is said to be denormalized when the integer part of the significand is not exactly 1. The above calculation illustrates how to change a denormalized value to a normalized value. <br> <br>
-  
+
 #### Rounding
-  Just like unsigned and signed data types floating points are also capable of using addition, subtraction, multiplication and division operations. Floating point addition, subtraction, multiplication and division usually can be executed without any problems but sometimes there are rounding errors. Rounding errors are the difference between the result produced by a given algorithm and the result produced form same algorithm using floating points rounded arithmetic. One famous example is .1 + .2 != .3 in C. Check out the example below.<br> 
+  Just like unsigned and signed data types floating points are also capable of using addition, subtraction, multiplication and division operations. Floating point addition, subtraction, multiplication and division usually can be executed without any problems but sometimes there are rounding errors. Rounding errors are the difference between the result produced by a given algorithm and the result produced form same algorithm using floating points rounded arithmetic. One famous example is .1 + .2 != .3 in C. Check out the example below.<br>
 
 ```C
 //fpRoundoff.c
@@ -489,15 +489,15 @@ d = 0.3000000119
 ```
 
   Because of how the floating point rounds numbers you see the result is not extremely accurate. Set it between 1 and 6 decimal points of precision and you are okay but otherwise the answer is wrong. This is important to keep in mind whenever using floating point variables. <br> <br>
-  
+
 #### Absolute Error and Relative Error
   **Absolute error** is the amount of error in measurement period. <br>
-  **Relative error** indicates how good a measurement is relative to what ever is being measured. 
-  
+  **Relative error** indicates how good a measurement is relative to what ever is being measured.
+
 $Relative$ $Error$ = $\frac{Absolute-Error}{Value-Being-Measured}$	<br>
 
-  This error is usually measured in terms of epsilon. In C there is **machine epsilon**, **FLT_EPSILON**, and **DBL_EPSILON**. Machine epsilon is an upper bound on relative error due to rounding in floating point arithmetic. It is the smallest number of epsilon such that 1 + epsilon != 1. This value is machine dependent as well as dependent on data type. The macros FLT_EPSILON and DBL_EPSILON can be used to find the epsilon values for floats and doubles in C. 
-  Below is a program which compares absolute and relative error in some different situations. 
+  This error is usually measured in terms of epsilon. In C there is **machine epsilon**, **FLT_EPSILON**, and **DBL_EPSILON**. Machine epsilon is an upper bound on relative error due to rounding in floating point arithmetic. It is the smallest number of epsilon such that 1 + epsilon != 1. This value is machine dependent as well as dependent on data type. The macros FLT_EPSILON and DBL_EPSILON can be used to find the epsilon values for floats and doubles in C.
+  Below is a program which compares absolute and relative error in some different situations.
 
 ```C
 //errors.c
@@ -560,7 +560,7 @@ FLT_MAX-  2.0e+31  6.0e-08
   Absolute error increases but relative error stays between 1.2e-7 and 1.2e-7/2.
 
 <br>
-  
+
 #### Floating Point Overflow and Underflow
   Though there is a huge value of ranges for floating points they can still overflow. When a floating point overflows the value is usually to **inf**, or infinity. Not only is there overflow but there is also underflow. Underflow is the same concept but happens at the lowest possible value for floating points. If you subtract 1 from the lowest possible floating point value the result would be **-inf**, or -infinity. Not only is there positive and negative infinity but there is also **NaN** which stands for not a number. Nans are produced from doing unlogical operations. For example if you were to attempt to take sqrt(-1) in C the result would be a Nan. It is impossible to take the sqrt(-1) so this is C's way of telling you that. Nans can also be produced from an operation that leads to undefined behavior.<br><br>
   These are not the only funky values in C. There is +0 and -0! Though their bit pattern is different they actually appear to be the same when compared. They produce the same result when dividing or multiplying with a number. I did some tests with overflow and underflow values. My results are below.
@@ -650,17 +650,17 @@ DBL_MIN/2 is subnormal
 
 ### Using printf <a name="Using printf"></a>
   In C printf is commonly used to print output to the console. It is important to know the format for printf as well as which identifiers to use for certain data types.
-      
+
     printf("text here %identifier", variableToBePrinted) ;
-      
+
   In this exampple if variableToBePrinted were a character the "identifier" used to print it would be "c". So for some char c the statement to print c's value is:
-      
+
     printf("c's value is %c", c);
-    
-    
+
+
   There are examples below to show which identifier to use for each different data type. There is also a small portion of code which shows how to change the precision of the number being printed. To change precision for a float insert a period followed by the number of digits you want to be displayed inbetween the percent sign and identifier in the printf statement.
-    
-    
+
+
 ```C
 //printValues.c
 
@@ -711,9 +711,9 @@ double precision test = 1.12345678901234569
 
 <br>
 
-#### Memcpy() <a name="Memcpy"></a> 
+#### Memcpy() <a name="Memcpy"></a>
   The program below illustrates how memory is copied with memcpy(). Memcpy() copies n characters from memory area src to memory area dest.
-  
+
 ```C
 //memcpy.c
 
@@ -749,7 +749,7 @@ After copying...
 str1: Gonna copy this
 str2: Gonna copy this
 ```
-  
+
 <br>
 
 
@@ -783,4 +783,3 @@ str2: Gonna copy this
 <br>
 <br>
 <br>
-    
