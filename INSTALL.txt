@@ -1,0 +1,1 @@
+There is no installation needed to read this tutorial but if you wish to execute the cPrograms which are used for examples in the tutorial gcc must be installed on your system.

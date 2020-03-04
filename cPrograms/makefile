@@ -5,8 +5,8 @@ CFLAGS = -O -Wno-division-by-zero -std=c89
 
 #Dependencies
 all : IntZeroDivision bohAssignment signedZeroDivision printValues maxesAndMins fpRoundoff signedFlow unsignedFlow fpFlow printSizes wordSize fpClassification errors wordAddressing byteAddressing epsilon memcpy
-IntZeroDivision	:	IntZeroDivision.c
-bohAssignment	:	bohAssignment.c
+IntZeroDivision	: IntZeroDivision.c
+bohAssignment	: bohAssignment.c
 signedZeroDivision : signedZeroDivision.c
 printValues : printValues.c
 maxesAndMins : maxesAndMins.c
@@ -25,7 +25,7 @@ memcpy : memcpy.c
 
 
 #misc targets
-run : IntZeroDivision bohAssignment signedZeroDivision printValues maxesAndMins fpRoundoff signedFlow unsignedFlow fpFlow printSizes wordSize fpClassification errors wordAddressing byteAddressing epsilon
+run : IntZeroDivision bohAssignment signedZeroDivision printValues maxesAndMins fpRoundoff signedFlow unsignedFlow fpFlow printSizes wordSize fpClassification errors wordAddressing byteAddressing epsilon memcpy
 		./IntZeroDivision > outputFiles/IntZeroDivision.txt
 		./bohAssignment > outputFiles/bohAssignment.txt
 		./signedZeroDivision > outputFiles/signedZeroDivision.txt
@@ -62,5 +62,5 @@ clean:
 		rm -f outputFiles/wordAddressing.txt
 		rm -f outputFiles/byteAddressing.txt
 		rm -f outputFiles/epsilon.txt
-		rm -f ouputFiles/memcpy.txt
+		rm -f outputFiles/memcpy.txt
 		rm -f ../cCodeTutorial.html

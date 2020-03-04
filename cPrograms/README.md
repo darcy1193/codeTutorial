@@ -18,4 +18,5 @@ This folder contains all of the cPrograms.
 - wordAddressing.c - Shows how word addressing works.
 - byteAddressing.c - Shows how byte addressing works.
 - epsilon.c - Shows how to find machine epsilon FLT_EPSILON AND DBL_EPSILON.
+- memcpy.c - Shows how memcpy works on different strings.
 - outputFiles - All output from above file is printed to its own output file with the c extension changed to txt.
