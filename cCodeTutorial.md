@@ -11,6 +11,7 @@ by Daniel Darcy
 - [Section 6 - Signed Numbers](#Signed Numbers)  
 - [Section 7 - IEEE Floating Point](#IEEE Floating Point)  
 - [Section 8 - Using printf](#Using printf)
+- [Section 9 - Memcpy()](#Memcpy)
 - [Refrences](#Refrences)  
 <br>
 
@@ -652,7 +653,7 @@ DBL_MIN/2 is subnormal
       
     printf("text here %identifier", variableToBePrinted) ;
       
-    In this exampple if variableToBePrinted were a character the "identifier" used to print it would be "c". So for come char c the statement to print c's value is:
+  In this exampple if variableToBePrinted were a character the "identifier" used to print it would be "c". So for some char c the statement to print c's value is:
       
     printf("c's value is %c", c);
     
@@ -710,6 +711,50 @@ double precision test = 1.12345678901234569
 
 <br>
 
+#### Memcpy() <a name="Memcpy"></a> 
+  The program below illustrates how memory is copied with memcpy(). Memcpy() copies n characters from memory area src to memory area dest.
+  
+```C
+//memcpy.c
+
+#include <stdio.h>
+#include <string.h>
+#define MAX_CHAR 100
+
+int main(void) {
+	char str1[MAX_CHAR] = "Hello World!";
+	char str2[MAX_CHAR] = "Gonna copy this";
+
+	printf("Before copy\n");
+	printf("str1: %s\n",str1);
+	printf("str2: %s\n",str2);
+
+	//copy str2(source) to str1(destination)
+	memcpy(str1, str2, strlen(str2));
+
+	printf("After copy\n");
+	printf("str1: %s\n", str1);
+	printf("str2: %s\n", str2);
+
+	return 0;
+}
+```
+
+```
+Output:
+Before copying...
+str1: Hello World!
+str2: Gonna copy this
+After copying...
+str1: Gonna copy this
+str2: Gonna copy this
+```
+  
+<br>
+
+
+
+
 ### Refrences <a name="Refrences"></a>
   - *Understanding Floating Point Numbers* by Eric Sakk
   - *Understanding Binary Numbers* by Eric Sakk
@@ -720,10 +765,21 @@ double precision test = 1.12345678901234569
   - https://www.ntu.edu.sg/home/ehchua/programming/java/DataRepresentation.html
   - https://www.ascii-code.com/
   - https://www.geeksforgeeks.org/octal-numbers-c/
+  - https://www.geeksforgeeks.org/memcpy-in-cc/
   - http://www.linfo.org/machine_code.html
   - https://www.tutorialspoint.com/cprogramming/c_data_types.html
   - http://www.cs.yale.edu/homes/aspnes/pinewiki/C(2f)FloatingPoint.html
   - https://en.wikipedia.org/wiki/Round-off_error
+  - https://denniskubes.com/2012/08/17/basics-of-memory-addresses-in-c/
+  - https://stackoverflow.com/questions/16863333/what-is-the-point-word-type-in-c
+  - http://www.ee.nmt.edu/~rison/ee308_spr02/supp/020123.pdf
+  - https://www.thestudentroom.co.uk/showthread.php?t=178103
+  - https://en.cppreference.com/w/c/numeric/math/fpclassify
+  - http://www.phy.ilstu.edu/slh/Absolute%20Relative%20Error.pdf
+  - https://en.wikipedia.org/wiki/Machine_epsilon
+  - https://www.geeksforgeeks.org/cpp-program-to-find-machine-epsilon/
+  - http://www.cs.otago.ac.nz/cosc326/Support/absrel.htm
+
 <br>
 <br>
 <br>

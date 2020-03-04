@@ -4,7 +4,7 @@ CFLAGS = -O -Wno-division-by-zero -std=c89
 
 
 #Dependencies
-all : IntZeroDivision bohAssignment signedZeroDivision printValues maxesAndMins fpRoundoff signedFlow unsignedFlow fpFlow printSizes wordSize fpClassification errors wordAddressing byteAddressing epsilon
+all : IntZeroDivision bohAssignment signedZeroDivision printValues maxesAndMins fpRoundoff signedFlow unsignedFlow fpFlow printSizes wordSize fpClassification errors wordAddressing byteAddressing epsilon memcpy
 IntZeroDivision	:	IntZeroDivision.c
 bohAssignment	:	bohAssignment.c
 signedZeroDivision : signedZeroDivision.c
@@ -21,6 +21,7 @@ errors : errors.c
 wordAddressing : wordAddressing.c
 byteAddressing : byteAddressing.c
 epsilon : epsilon.c
+memcpy : memcpy.c
 
 
 #misc targets
@@ -41,9 +42,10 @@ run : IntZeroDivision bohAssignment signedZeroDivision printValues maxesAndMins 
 		./wordAddressing > outputFiles/wordAddressing.txt
 		./byteAddressing > outputFiles/byteAddressing.txt
 		./epsilon > outputFiles/epsilon.txt
+		./memcpy > outputFiles/memcpy.txt
 
 clean:
-		rm -f *.o core bohAssignment IntZeroDivision signedZeroDivision printValues maxesAndMins fpRoundoff signedFlow unsignedFlow fpFlow printSizes wordSize fpClassification errors wordAddressing byteAddressing epsilon
+		rm -f *.o core bohAssignment IntZeroDivision signedZeroDivision printValues maxesAndMins fpRoundoff signedFlow unsignedFlow fpFlow printSizes wordSize fpClassification errors wordAddressing byteAddressing epsilon memcpy
 		rm -f outputFiles/bohAssignment.txt
 		rm -f outputFiles/fpFlow.txt
 		rm -f outputFiles/fpRoundoff.txt
@@ -60,4 +62,5 @@ clean:
 		rm -f outputFiles/wordAddressing.txt
 		rm -f outputFiles/byteAddressing.txt
 		rm -f outputFiles/epsilon.txt
+		rm -f ouputFiles/memcpy.txt
 		rm -f ../cCodeTutorial.html

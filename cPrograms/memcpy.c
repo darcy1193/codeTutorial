@@ -6,29 +6,22 @@ DESCRIPTION : This program shows how memory is copied with memcpy().
 **/
 #include <stdio.h>
 #include <string.h>
-int main(void){
+#define MAX_CHAR 100
 
-	union{
-		int xi;
-		float xf;
-	} d;
+int main(void) {
+	char str1[MAX_CHAR] = "Hello World!";
+	char str2[MAX_CHAR] = "Gonna copy this";
 
-	printf("union d's addresses\n");
-	printf("%p\n", &d);
-	printf("%p\n", &d.xi);
-	printf("%p\n", &d.xf);
+	printf("Before copy\n");
+	printf("str1: %s\n",str1);
+	printf("str2: %s\n",str2);
 
-	union{
-		int zi;
-		char zc[4];
-	} z;
+	//copy str2(source) to str1(destination)
+	memcpy(str1, str2, strlen(str2));
 
-	printf("union z's addresses\n");
-	printf("%p\n", &z);
-	printf("%p\n", &z.zi);
-	printf("%p\n", &z.zc);
+	printf("After copy\n");
+	printf("str1: %s\n", str1);
+	printf("str2: %s\n", str2);
 
-	memcpy(&d,&z,sizeof(d)); //cpy memory contents to new address
-	//print contents of address
-
+	return 0;
 }

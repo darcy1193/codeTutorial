@@ -201,6 +201,7 @@ summary {
 <li><a href="#IEEE%20Floating%20Point">Section 7 - IEEE Floating Point</a><br />
 </li>
 <li><a href="#Using%20printf">Section 8 - Using printf</a></li>
+<li><a href="#Memcpy">Section 9 - Memcpy()</a></li>
 <li><a href="#Refrences">Refrences</a><br />
 <br></li>
 </ul>
@@ -840,10 +841,9 @@ DBL_MIN/2 is subnormal
 <h3>Using printf <a name="Using printf"></a></h3>
 <p>In C printf is commonly used to print output to the console. It is important to know the format for printf as well as which identifiers to use for certain data types.</p>
 <pre><code>printf(&quot;text here %identifier&quot;, variableToBePrinted) ;
-  
-In this exampple if variableToBePrinted were a character the &quot;identifier&quot; used to print it would be &quot;c&quot;. So for come char c the statement to print c's value is:
-  
-printf(&quot;c's value is %c&quot;, c);</code></pre>
+  </code></pre>
+<p>In this exampple if variableToBePrinted were a character the “identifier” used to print it would be “c”. So for some char c the statement to print c’s value is:</p>
+<pre><code>printf(&quot;c's value is %c&quot;, c);</code></pre>
 <p>There are examples below to show which identifier to use for each different data type. There is also a small portion of code which shows how to change the precision of the number being printed. To change precision for a float insert a period followed by the number of digits you want to be displayed inbetween the percent sign and identifier in the printf statement.</p>
 <pre class="c"><code>//printValues.c
 
@@ -887,6 +887,41 @@ double precision test = 1.12345678901234569
 </code></pre>
 <p>The above precision tests illustrate how roundoff causes floats to not be 100% accurate.</p>
 <p><br></p>
+<div id="memcpy" class="section level4">
+<h4>Memcpy() <a name="Memcpy"></a></h4>
+<p>The program below illustrates how memory is copied with memcpy(). Memcpy() copies n characters from memory area src to memory area dest.</p>
+<pre class="c"><code>//memcpy.c
+
+#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+#define MAX_CHAR 100
+
+int main(void) {
+    char str1[MAX_CHAR] = &quot;Hello World!&quot;;
+    char str2[MAX_CHAR] = &quot;Gonna copy this&quot;;
+
+    printf(&quot;Before copy\n&quot;);
+    printf(&quot;str1: %s\n&quot;,str1);
+    printf(&quot;str2: %s\n&quot;,str2);
+
+    //copy str2(source) to str1(destination)
+    memcpy(str1, str2, strlen(str2));
+
+    printf(&quot;After copy\n&quot;);
+    printf(&quot;str1: %s\n&quot;, str1);
+    printf(&quot;str2: %s\n&quot;, str2);
+
+    return 0;
+}</code></pre>
+<pre><code>Output:
+Before copying...
+str1: Hello World!
+str2: Gonna copy this
+After copying...
+str1: Gonna copy this
+str2: Gonna copy this</code></pre>
+<p><br></p>
+</div>
 </div>
 <div id="refrences" class="section level3">
 <h3>Refrences <a name="Refrences"></a></h3>
@@ -900,11 +935,22 @@ double precision test = 1.12345678901234569
 <li><a href="https://www.ntu.edu.sg/home/ehchua/programming/java/DataRepresentation.html" class="uri">https://www.ntu.edu.sg/home/ehchua/programming/java/DataRepresentation.html</a></li>
 <li><a href="https://www.ascii-code.com/" class="uri">https://www.ascii-code.com/</a></li>
 <li><a href="https://www.geeksforgeeks.org/octal-numbers-c/" class="uri">https://www.geeksforgeeks.org/octal-numbers-c/</a></li>
+<li><a href="https://www.geeksforgeeks.org/memcpy-in-cc/" class="uri">https://www.geeksforgeeks.org/memcpy-in-cc/</a></li>
 <li><a href="http://www.linfo.org/machine_code.html" class="uri">http://www.linfo.org/machine_code.html</a></li>
 <li><a href="https://www.tutorialspoint.com/cprogramming/c_data_types.html" class="uri">https://www.tutorialspoint.com/cprogramming/c_data_types.html</a></li>
 <li><a href="http://www.cs.yale.edu/homes/aspnes/pinewiki/C(2f)FloatingPoint.html" class="uri">http://www.cs.yale.edu/homes/aspnes/pinewiki/C(2f)FloatingPoint.html</a></li>
-<li><a href="https://en.wikipedia.org/wiki/Round-off_error" class="uri">https://en.wikipedia.org/wiki/Round-off_error</a> <br> <br> <br></li>
+<li><a href="https://en.wikipedia.org/wiki/Round-off_error" class="uri">https://en.wikipedia.org/wiki/Round-off_error</a></li>
+<li><a href="https://denniskubes.com/2012/08/17/basics-of-memory-addresses-in-c/" class="uri">https://denniskubes.com/2012/08/17/basics-of-memory-addresses-in-c/</a></li>
+<li><a href="https://stackoverflow.com/questions/16863333/what-is-the-point-word-type-in-c" class="uri">https://stackoverflow.com/questions/16863333/what-is-the-point-word-type-in-c</a></li>
+<li><a href="http://www.ee.nmt.edu/~rison/ee308_spr02/supp/020123.pdf" class="uri">http://www.ee.nmt.edu/~rison/ee308_spr02/supp/020123.pdf</a></li>
+<li><a href="https://www.thestudentroom.co.uk/showthread.php?t=178103" class="uri">https://www.thestudentroom.co.uk/showthread.php?t=178103</a></li>
+<li><a href="https://en.cppreference.com/w/c/numeric/math/fpclassify" class="uri">https://en.cppreference.com/w/c/numeric/math/fpclassify</a></li>
+<li><a href="http://www.phy.ilstu.edu/slh/Absolute%20Relative%20Error.pdf">http://www.phy.ilstu.edu/slh/Absolute%20Relative%20Error.pdf</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Machine_epsilon" class="uri">https://en.wikipedia.org/wiki/Machine_epsilon</a></li>
+<li><a href="https://www.geeksforgeeks.org/cpp-program-to-find-machine-epsilon/" class="uri">https://www.geeksforgeeks.org/cpp-program-to-find-machine-epsilon/</a></li>
+<li><a href="http://www.cs.otago.ac.nz/cosc326/Support/absrel.htm" class="uri">http://www.cs.otago.ac.nz/cosc326/Support/absrel.htm</a></li>
 </ul>
+<p><br> <br> <br></p>
 </div>
 </div>
 
